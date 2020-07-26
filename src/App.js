@@ -45,15 +45,15 @@ const App = ({ checkUserSession, currentUser }) => {
             <Route
               render={() =>
                 currentUser ? (
-                  <div class="left">
+                  <div className="left">
                     <div
-                      class="ui visible sidebar inverted vertical menu"
+                      className="ui visible sidebar inverted vertical menu"
                       style={{ top: 90 }}
                     >
-                      <Link class="item">Insights</Link>
-                      <Link class="item">Entry</Link>
-                      <Link class="item">Patient Status</Link>
-                      <Link class="item">Exit</Link>
+                      <Link className="item">Insights</Link>
+                      <Link className="item">Entry</Link>
+                      <Link className="item">Patient Status</Link>
+                      <Link className="item">Exit</Link>
                     </div>
                   </div>
                 ) : (
