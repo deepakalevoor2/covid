@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -42,7 +42,7 @@ const App = ({ checkUserSession, currentUser }) => {
                 currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
               }
             />
-            <div
+            <Route
               render={() =>
                 currentUser ? (
                   <div class="left">
@@ -50,17 +50,17 @@ const App = ({ checkUserSession, currentUser }) => {
                       class="ui visible sidebar inverted vertical menu"
                       style={{ top: 90 }}
                     >
-                      <a class="item">Insights</a>
-                      <a class="item">Entry</a>
-                      <a class="item">Patient Status</a>
-                      <a class="item">Exit</a>
+                      <Link class="item">Insights</Link>
+                      <Link class="item">Entry</Link>
+                      <Link class="item">Patient Status</Link>
+                      <Link class="item">Exit</Link>
                     </div>
                   </div>
                 ) : (
                   <div></div>
                 )
               }
-            ></div>
+            />
           </Suspense>
         </ErrorBoundary>
       </Switch>
