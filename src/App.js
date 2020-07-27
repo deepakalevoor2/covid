@@ -14,6 +14,9 @@ import { checkUserSession } from "./redux/user/user.actions";
 import Home from "./pages/home/home";
 
 const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
+const EntryPage = lazy(() => import("./pages/entry/entry"));
+const PatientStatus = lazy(() => import("./pages/status/status"));
+const Exit = lazy(() => import("./pages/exit/exit"));
 
 const SignInAndSignUpPage = lazy(() =>
   import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
@@ -50,10 +53,18 @@ const App = ({ checkUserSession, currentUser }) => {
                       className="ui visible sidebar inverted vertical menu"
                       style={{ top: 90 }}
                     >
-                      <Link className="item">Insights</Link>
-                      <Link className="item">Entry</Link>
-                      <Link className="item">Patient Status</Link>
-                      <Link className="item">Exit</Link>
+                      <Link to="/" className="item">
+                        Insights
+                      </Link>
+                      <Link to={{ pathname: "/entry" }} className="item">
+                        Entry
+                      </Link>
+                      <Link to={{ pathname: "/status" }} className="item">
+                        Patient Status
+                      </Link>
+                      <Link to={{ pathname: "/exit" }} className="item">
+                        Exit
+                      </Link>
                     </div>
                   </div>
                 ) : (
@@ -61,6 +72,9 @@ const App = ({ checkUserSession, currentUser }) => {
                 )
               }
             />
+            <Route exact path="/entry" component={EntryPage} />
+            <Route exact path="/status" component={PatientStatus} />
+            <Route exact path="/exit" component={Exit} />
           </Suspense>
         </ErrorBoundary>
       </Switch>
