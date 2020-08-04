@@ -46,3 +46,22 @@ exports.updatePatient = (req, res) => {
     }
   );
 };
+
+exports.dischargePatient = (req, res) => {
+  const patient = req.body;
+  console.log(patient);
+  Patient.updateOne(
+    { patientId: req.params.patientId },
+    {
+      $set: {
+        discharged: patient.discharged,
+      },
+    },
+    (err, patient) => {
+      if (err) {
+        return res.status(400).json({ error: "Failed to update status" });
+      }
+      res.json(patient);
+    }
+  );
+};

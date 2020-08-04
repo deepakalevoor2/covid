@@ -127,3 +127,23 @@ export const updatePatient = (userId, token, patientId, patient) => {
       console.log(err);
     });
 };
+
+export const dischargePatient = (userId, token, patientId, patient) => {
+  console.log("Patient is ", patient);
+  return fetch(`${API}/patient/${patientId}/discharge/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(patient),
+    //body: patient,
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

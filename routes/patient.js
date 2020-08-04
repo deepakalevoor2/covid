@@ -7,6 +7,7 @@ const {
   createPatient,
   getPatient,
   updatePatient,
+  dischargePatient,
 } = require("../controllers/patient");
 
 //params
@@ -30,6 +31,13 @@ router.put(
   isSignedIn,
   isAuthenticated,
   updatePatient
+);
+
+router.put(
+  "/patient/:patientId/discharge/:userId",
+  isSignedIn,
+  isAuthenticated,
+  dischargePatient
 );
 
 module.exports = router;

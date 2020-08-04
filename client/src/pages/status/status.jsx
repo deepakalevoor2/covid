@@ -80,7 +80,7 @@ const PatientStatus = () => {
     const ventilator = isChecked === undefined ? "false" : isChecked;
     const updatedPatient = { ...name, currentStatus, ventilator };
     const { user, token } = isAuthenticated();
-    console.log(updatePatient);
+    console.log(updatedPatient);
     updatePatient(user._id, token, patientId, updatedPatient).then((data) => {
       if (data.error) {
         setError(true);
