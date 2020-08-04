@@ -7,7 +7,7 @@ import CustomButton from "../../components/custom-button/custom-button.component
 import Dropdown from "../../components/dropdown/Dropdown";
 import SearchPatient from "../../hooks/searchPatient";
 //import Checkbox from "../../components/checkbox/checkbox";
-import { getPatient } from "../../apis";
+import { updatePatient, isAuthenticated } from "../../apis";
 
 import { StatusDiv } from "./status.styles";
 
@@ -29,7 +29,6 @@ const options = [
 const PatientStatus = () => {
   const [selected, setSelected] = useState(options[0]);
   const [isChecked, setIsChecked] = React.useState(undefined);
-  const [patient, search] = SearchPatient("1055");
   const [result, setResult] = useState({
     patient_id: "",
     patientId: "",
@@ -38,18 +37,10 @@ const PatientStatus = () => {
     ventilator: "",
     currentStatus: "",
   });
-
-  const {
-    patient_id,
-    patientId,
-    patientName,
-    bedNo,
-    ventilator,
-    currentStatus,
-  } = result;
-
+  const { patientId, patientName, bedNo, currentStatus, ventilator } = result;
+  const [patient, search] = SearchPatient("1055");
   useEffect(
-    () => {
+    (result) => {
       if (patient) {
         setResult({
           ...result,
@@ -62,19 +53,41 @@ const PatientStatus = () => {
         });
         setSelected({ label: currentStatus, value: currentStatus });
         setIsChecked(ventilator);
-        console.log("selected is", selected);
-        console.log("currentStatus is", currentStatus);
       }
     },
-    [patient],
-    currentStatus,
-    result,
-    selected,
-    ventilator
+    [patient, currentStatus, ventilator]
   );
 
+  //setSelected({ label: currentStatus, value: currentStatus });
+  //setIsChecked(ventilator);
+
+  const [error, setError] = useState(false);
+
   const handleChange = (name) => (event) => {
-    setResult({ ...patient, [name]: event.target.value });
+    setResult({
+      ...patient,
+      [name]: event.target.value,
+      currentStatus: selected.value,
+      ventilator: isChecked,
+    });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    //console.log(patient, selected.value, isChecked);
+    const name = { patientName, bedNo };
+    const currentStatus = selected.value;
+    const ventilator = isChecked === undefined ? "false" : isChecked;
+    const updatedPatient = { ...name, currentStatus, ventilator };
+    const { user, token } = isAuthenticated();
+    console.log(updatePatient);
+    updatePatient(user._id, token, patientId, updatedPatient).then((data) => {
+      if (data.error) {
+        setError(true);
+      } else {
+        setError("");
+      }
+    });
   };
 
   return (
@@ -112,12 +125,14 @@ const PatientStatus = () => {
         />*/}
         <Checkbox
           name="ventilator"
-          isChecked={ventilator}
+          isChecked={isChecked}
           onChange={setIsChecked}
         >
           Ventilator
         </Checkbox>
-        <CustomButton type="submit">Submit</CustomButton>
+        <CustomButton onClick={onSubmit} type="submit">
+          Submit
+        </CustomButton>
       </form>
     </StatusDiv>
   );

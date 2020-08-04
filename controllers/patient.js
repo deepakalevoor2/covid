@@ -1,4 +1,5 @@
 const Patient = require("../models/patient");
+const patient = require("../models/patient");
 
 exports.createPatient = (req, res) => {
   //req.body.order.user = req.profile;
@@ -22,4 +23,26 @@ exports.getPatient = (req, res) => {
     }
     res.json(patient);
   });
+};
+
+exports.updatePatient = (req, res) => {
+  const patient = req.body;
+  console.log(patient);
+  Patient.updateOne(
+    { patientId: req.params.patientId },
+    {
+      $set: {
+        patientName: patient.patientName,
+        currentStatus: patient.currentStatus,
+        bedNo: patient.bedNo,
+        ventilator: patient.ventilator,
+      },
+    },
+    (err, patient) => {
+      if (err) {
+        return res.status(400).json({ error: "Failed to update status" });
+      }
+      res.json(patient);
+    }
+  );
 };

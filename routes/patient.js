@@ -3,7 +3,11 @@ const router = express.Router();
 
 const { isSignedIn, isAuthenticated } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
-const { createPatient, getPatient } = require("../controllers/patient");
+const {
+  createPatient,
+  getPatient,
+  updatePatient,
+} = require("../controllers/patient");
 
 //params
 router.param("userId", getUserById);
@@ -19,5 +23,13 @@ router.post(
 
 //read
 router.get("/patient/:patientId", getPatient);
+
+//update
+router.put(
+  "/patient/:patientId/status/:userId",
+  isSignedIn,
+  isAuthenticated,
+  updatePatient
+);
 
 module.exports = router;
