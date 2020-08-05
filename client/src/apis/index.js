@@ -147,3 +147,23 @@ export const dischargePatient = (userId, token, patientId, patient) => {
       console.log(err);
     });
 };
+
+export const getPatientCountBySeverity = () => {
+  return fetch(`${API}/ptcountseverity`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getPatientCountByVentilator = () => {
+  return fetch(`${API}/ptcountventilator`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};

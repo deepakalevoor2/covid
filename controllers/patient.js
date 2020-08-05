@@ -77,3 +77,47 @@ exports.getCapacity = (req, res) => {
     res.json(capacity);
   });
 };
+
+exports.patientCountBySevirity = (req, res) => {
+  Patient.aggregate([
+    { $match: { discharged: false } },
+    //{ $group: { _id: "$currentStatus", myCount: { $sum: 1 } } },
+    { $group: { _id: "$currentStatus", ptCount: { $sum: 1 } } },
+  ]).exec((err, ptCount) => {
+    if (err) {
+      return res.status(400).json({ error: "query not executable" });
+    }
+    console.log(ptCount);
+    res.json(ptCount);
+  });
+};
+
+exports.patientCountByVentilator = (req, res) => {
+  Patient.aggregate([
+    { $match: { ventilator: true } },
+    //{ $group: { _id: "$currentStatus", myCount: { $sum: 1 } } },
+    { $group: { _id: null, ptCount: { $sum: 1 } } },
+  ]).exec((err, ptCount) => {
+    if (err) {
+      return res.status(400).json({ error: "query not executable" });
+    }
+    console.log(ptCount);
+    res.json(ptCount);
+  });
+};
+
+exports.patientCount = (req, res) => {
+  Patient.aggregate([
+    { $match: { discharged: false } },
+    //{ $group: { _id: "$currentStatus", myCount: { $sum: 1 } } },
+    { $group: { _id: null, ptCount: { $sum: 1 } } },
+  ]).exec((err, ptCount) => {
+    if (err) {
+      return res.status(400).json({ error: "query not executable" });
+    }
+    console.log(ptCount);
+    res.json(ptCount);
+  });
+};
+
+//db.covid.patient.aggregate([{ $match: { discharged: false } },  { $group: { _id: "$currentStatus",myCount: { $sum: 1 }} },]);

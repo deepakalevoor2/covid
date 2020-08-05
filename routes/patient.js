@@ -9,6 +9,9 @@ const {
   updatePatient,
   dischargePatient,
   getCapacity,
+  patientCountBySevirity,
+  patientCountByVentilator,
+  patientCount,
 } = require("../controllers/patient");
 
 //params
@@ -27,6 +30,10 @@ router.post(
 router.get("/patient/:patientId", getPatient);
 
 router.get("/capacity", getCapacity);
+
+router.get("/ptcountseverity", patientCountBySevirity);
+router.get("/ptcountventilator", patientCountByVentilator);
+router.get("/ptcount", patientCount);
 
 //update
 router.put(

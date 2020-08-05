@@ -90,6 +90,21 @@ const PatientStatus = () => {
     });
   };
 
+  const errorMessage = () => {
+    return (
+      <div className="row">
+        <div className="col-md-6 offset-sm-3 text-left">
+          <div
+            className="alert alert-danger"
+            style={{ display: error ? "" : "none" }}
+          >
+            {error}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <StatusDiv>
       <Search onFormSubmit={search} />
@@ -134,6 +149,7 @@ const PatientStatus = () => {
           Submit
         </CustomButton>
       </form>
+      {errorMessage()}
     </StatusDiv>
   );
 };

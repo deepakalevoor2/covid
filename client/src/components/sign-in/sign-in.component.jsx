@@ -37,8 +37,8 @@ const SignIn = () => {
     didRedirect: false,
   });
 
-  const { email, password, error, loading, didRedirect } = values;
-  const { user } = isAuthenticated();
+  const { email, password, error, loading } = values;
+  //const { user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -66,12 +66,37 @@ const SignIn = () => {
       .catch(console.log("signin request failed"));
   };
 
+  const loadingMessage = () => {
+    return (
+      loading && (
+        <div className="alert alert-info">
+          <h2>Loading...</h2>
+        </div>
+      )
+    );
+  };
+
   const performRedirect = () => {
     console.log("redir");
     if (isAuthenticated()) {
       console.log("isauth");
       return <Redirect to="/" />;
     }
+  };
+
+  const errorMessage = () => {
+    return (
+      <div className="row">
+        <div className="col-md-6 offset-sm-3 text-left">
+          <div
+            className="alert alert-danger"
+            style={{ display: error ? "" : "none" }}
+          >
+            {error}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -101,6 +126,8 @@ const SignIn = () => {
           </CustomButton>
         </ButtonsBarContainer>
       </form>
+      {loadingMessage()}
+      {errorMessage()}
       {performRedirect()}
     </SignInContainer>
   );

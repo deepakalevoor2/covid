@@ -38,11 +38,11 @@
 
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+//import { connect } from "react-redux";
+//import { createStructuredSelector } from "reselect";
 
 //import { selectCartHidden } from "../../redux/cart/cart.selectors";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+//import { selectCurrentUser } from "../../redux/user/user.selectors";
 //import { signOutStart } from "../../redux/user/user.actions";
 import { isAuthenticated, signout } from "../../apis";
 
@@ -85,13 +85,14 @@ const Header = () => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  //hidden: selectCartHidden,
-});
+// const mapStateToProps = createStructuredSelector({
+//   currentUser: selectCurrentUser,
+//   //hidden: selectCartHidden,
+// });
 
 // const mapDispatchToProps = (dispatch) => ({
 //   signOutStart: () => dispatch(signOutStart()),
 // });
 
-export default connect(mapStateToProps)(Header);
+//export default connect(mapStateToProps)(Header);
+export default Header;

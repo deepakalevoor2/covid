@@ -55,6 +55,21 @@ const Exit = () => {
     );
   };
 
+  const errorMessage = () => {
+    return (
+      <div className="row">
+        <div className="col-md-6 offset-sm-3 text-left">
+          <div
+            className="alert alert-danger"
+            style={{ display: error ? "" : "none" }}
+          >
+            {error}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <ExitDiv>
       <Search onFormSubmit={search} />
@@ -84,6 +99,7 @@ const Exit = () => {
           Submit
         </CustomButton>
       </form>
+      {errorMessage()}
     </ExitDiv>
   );
 };

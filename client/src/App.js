@@ -1,7 +1,7 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { Route, Switch, Redirect, Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+//import { connect } from "react-redux";
+//import { createStructuredSelector } from "reselect";
 
 import { isAuthenticated } from "./apis";
 import Header from "./components/header/Header";
@@ -10,7 +10,7 @@ import ErrorBoundary from "./components/error-boundary/error-boundary.component"
 
 import { GlobalStyle } from "./global.styles";
 
-import { selectCurrentUser } from "./redux/user/user.selectors";
+//import { selectCurrentUser } from "./redux/user/user.selectors";
 //import { checkUserSession } from "./redux/user/user.actions";
 import Home from "./pages/home/home";
 
@@ -46,10 +46,10 @@ const App = () => {
   // componentWillUnmount() {
   //   this.unsubscribeFromAuth();
   //};
-
-  // useEffect(() => {
-  //   checkUserSession();
-  // }, [checkUserSession]);
+  const { token } = isAuthenticated();
+  useEffect(() => {
+    isAuthenticated();
+  }, [token]);
   //render() {
   return (
     <div>
@@ -122,9 +122,9 @@ const App = () => {
 
 // export default connect(mapStateToProps)(App);
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-});
+// const mapStateToProps = createStructuredSelector({
+//   currentUser: selectCurrentUser,
+// });
 
 // const mapDispatchToProps = (dispatch) => ({
 //   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
