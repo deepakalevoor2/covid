@@ -1,5 +1,4 @@
-const Patient = require("../models/patient");
-const patient = require("../models/patient");
+const { Patient, Capacity } = require("../models/patient");
 
 exports.createPatient = (req, res) => {
   //req.body.order.user = req.profile;
@@ -64,4 +63,17 @@ exports.dischargePatient = (req, res) => {
       res.json(patient);
     }
   );
+};
+
+exports.getCapacity = (req, res) => {
+  //console.log(req.params.patientId);
+  console.log("capacity");
+
+  Capacity.findOne({}).exec((err, capacity) => {
+    if (err) {
+      return res.status(400).json({ error: "capacity not found" });
+    }
+    console.log(capacity);
+    res.json(capacity);
+  });
 };

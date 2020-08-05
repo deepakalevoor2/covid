@@ -8,6 +8,7 @@ const {
   getPatient,
   updatePatient,
   dischargePatient,
+  getCapacity,
 } = require("../controllers/patient");
 
 //params
@@ -24,6 +25,8 @@ router.post(
 
 //read
 router.get("/patient/:patientId", getPatient);
+
+router.get("/capacity", getCapacity);
 
 //update
 router.put(

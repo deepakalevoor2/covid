@@ -39,4 +39,13 @@ var patientSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Patient", patientSchema);
+const Patient = mongoose.model("Patient", patientSchema);
+
+const capacitySchema = new mongoose.Schema({
+  bedCount: { type: Number, default: 150 },
+  ventilatorCount: { type: Number, default: 50 },
+});
+
+const Capacity = mongoose.model("Capacity", capacitySchema);
+
+module.exports = { Patient, Capacity };

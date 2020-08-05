@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "migrate_down": "./node_modules/.bin/migrate-mongo down --file ./config/test_config.js",
+    "migrate_up": "./node_modules/.bin/migrate-mongo up --file ./config/test_config.js",
+    "migrate_status": "./node_modules/.bin/migrate-mongo status --file ./config/test_config.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +24,8 @@
     "i": "^0.3.6",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "migrate-mongo": "^8.1.1",
+    "migrate-mongoose": "^4.0.0",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
