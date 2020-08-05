@@ -47,23 +47,22 @@ const SignIn = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
-    signin({ email, password })
-      .then((data) => {
-        if (data.error) {
-          setValues({ ...values, error: data.error, loading: false });
-        } else {
-          authenticate(data, () => {
-            setValues({
-              ...values,
-              email: "",
-              password: "",
-              error: "",
-              didRedirect: true,
-            });
+    signin({ email, password }).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error, loading: false });
+      } else {
+        authenticate(data, () => {
+          setValues({
+            ...values,
+            email: "",
+            password: "",
+            error: "",
+            didRedirect: true,
           });
-        }
-      })
-      .catch(console.log("signin request failed"));
+        });
+      }
+    });
+    //.catch(console.log("signin request failed"));
   };
 
   const loadingMessage = () => {
@@ -77,9 +76,9 @@ const SignIn = () => {
   };
 
   const performRedirect = () => {
-    console.log("redir");
+    //console.log("redir");
     if (isAuthenticated()) {
-      console.log("isauth");
+      //console.log("isauth");
       return <Redirect to="/" />;
     }
   };

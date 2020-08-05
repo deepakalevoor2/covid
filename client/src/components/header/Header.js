@@ -36,7 +36,7 @@
 //   );
 // };
 
-import React from "react";
+import React, { useEffect, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 //import { connect } from "react-redux";
 //import { createStructuredSelector } from "reselect";
@@ -59,28 +59,34 @@ const Header = () => {
   const performRedirect = () => {
     return <Redirect to="/" />;
   };
+  const { user } = isAuthenticated();
+  useEffect(() => {
+    isAuthenticated();
+  }, [user]);
 
   return (
     <HeaderContainer>
       <LogoContainer to="/">
         <Logo className="logo" />
       </LogoContainer>
-      <OptionsContainer>
-        {isAuthenticated() ? (
-          <OptionLink
-            to="/#"
-            onClick={() => {
-              signout(() => {
-                performRedirect();
-              });
-            }}
-          >
-            SIGN OUT
-          </OptionLink>
-        ) : (
-          <OptionLink to="/signin">SIGN IN</OptionLink>
-        )}
-      </OptionsContainer>
+      <Fragment>
+        <OptionsContainer>
+          {isAuthenticated() ? (
+            <OptionLink
+              to="/#"
+              onClick={() => {
+                signout(() => {
+                  performRedirect();
+                });
+              }}
+            >
+              SIGN OUT
+            </OptionLink>
+          ) : (
+            <OptionLink to="/signin">SIGN IN</OptionLink>
+          )}
+        </OptionsContainer>
+      </Fragment>
     </HeaderContainer>
   );
 };

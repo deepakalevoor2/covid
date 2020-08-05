@@ -46,10 +46,10 @@ const App = () => {
   // componentWillUnmount() {
   //   this.unsubscribeFromAuth();
   //};
-  const { token } = isAuthenticated();
+  const { user } = isAuthenticated();
   useEffect(() => {
     isAuthenticated();
-  }, [token]);
+  }, [user]);
   //render() {
   return (
     <div>
