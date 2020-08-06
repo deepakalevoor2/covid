@@ -29,6 +29,7 @@ const options = [
 const PatientStatus = () => {
   const [selected, setSelected] = useState(options[0]);
   const [isChecked, setIsChecked] = React.useState(undefined);
+  const [success, setSuccess] = React.useState(false);
   const [result, setResult] = useState({
     patient_id: "",
     patientId: "",
@@ -86,16 +87,17 @@ const PatientStatus = () => {
         setError(true);
       } else {
         setError("");
+        setSuccess(true);
       }
     });
   };
 
   const errorMessage = () => {
     return (
-      <div className="row">
-        <div className="col-md-6 offset-sm-3 text-left">
+      <div className="column" style={{ display: error ? "" : "none" }}>
+        <div className="ui segment">
           <div
-            className="alert alert-danger"
+            className="ui red message"
             style={{ display: error ? "" : "none" }}
           >
             {error}
@@ -104,6 +106,12 @@ const PatientStatus = () => {
       </div>
     );
   };
+
+  const successMessage = () => (
+    <div className="ui segment" style={{ display: success ? "" : "none" }}>
+      <h4>Patient updated successfully</h4>
+    </div>
+  );
 
   return (
     <StatusDiv>
@@ -149,6 +157,7 @@ const PatientStatus = () => {
           Submit
         </CustomButton>
       </form>
+      {successMessage()}
       {errorMessage()}
     </StatusDiv>
   );

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 //   getPatientCountByVentilator,
 // } from "../../apis";
 import { API } from "../../backend";
-import { HomePageContainer } from "./homepage.styles";
+import { HomePageContainer, Circle } from "./homepage.styles";
 
 const HomePage = () => {
   const totalBeds = 150;
@@ -47,32 +47,121 @@ const HomePage = () => {
       abortController.abort();
     };
   }, []);
-  //setResult(...result,{item.id:"Free",ptCount:})
-  //console.log(result);
-  //result.map((item) => console.log(item));
-  //console.log(count);
+
+  const cards = () => {
+    return result.map((item) => (
+      //  color = "#ff0000",
+      //  if (item._id == "Severe") {
+      //   color = "#ff0000";
+      //  }
+
+      <Circle
+        key={item._id}
+        style={{
+          backgroundColor:
+            item._id === "Severe"
+              ? "#ff0000"
+              : item._id === "Mild"
+              ? "#FFFF00"
+              : "#FF8C00",
+        }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            margin: "auto",
+            padding: "70px 30px",
+          }}
+        >
+          <h4>{item._id}</h4>
+          <p>{item.ptCount}</p>
+        </div>
+      </Circle>
+    ));
+  };
+
   return (
     <HomePageContainer>
       <h1>Beds</h1>
-      {result.map((item) => (
-        <div key={item._id}>
-          <h4>{item._id}</h4>
-          <h6>{item.ptCount}</h6>
-        </div>
-      ))}
-      <div>
-        <h4>Free</h4>
-        <h6>{totalBeds - count}</h6>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          padding: "10px 40px",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          margin: "30px",
+          gap: "20px",
+        }}
+      >
+        {cards()}
+
+        <Circle style={{ backgroundColor: "#008000" }}>
+          <div
+            style={{
+              textAlign: "center",
+              margin: "auto",
+              padding: "70px 30px",
+            }}
+          >
+            <h4>Free</h4>
+            <p>{totalBeds - count}</p>
+          </div>
+        </Circle>
       </div>
       <h1>Ventilators</h1>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          padding: "10px 40px",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          margin: "30px",
+          gap: "20px",
+        }}
+      >
+        <Circle
+          style={{
+            backgroundColor: "#FF8C00",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              margin: "auto",
+              padding: "70px 30px",
+            }}
+          >
+            <h4>Used</h4>
+            <p>{ventilatorCount}</p>
+          </div>
+        </Circle>
+        <Circle
+          style={{
+            backgroundColor: "#008000",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              margin: "auto",
+              padding: "70px 30px",
+            }}
+          >
+            <h4>Used</h4>
+            <p>{totalVentilators - ventilatorCount}</p>
+          </div>
+        </Circle>
+      </div>
+      {/*<div>
         <h4>Used</h4>
         <h6>{ventilatorCount}</h6>
       </div>
       <div>
         <h4>Free</h4>
         <h6>{totalVentilators - ventilatorCount}</h6>
-      </div>
+      </div>*/}
     </HomePageContainer>
   );
 };

@@ -27,6 +27,7 @@ const options = [
 const Entry = () => {
   const [selected, setSelected] = useState(options[0]);
   const [isChecked, setIsChecked] = React.useState(undefined);
+  const [success, setSuccess] = React.useState(false);
   const [values, setValues] = useState({
     patientId: "",
     patientName: "",
@@ -41,7 +42,7 @@ const Entry = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(values, selected.value, isChecked);
+    //console.log(values, selected.value, isChecked);
     const name = { patientId, patientName, bedNo };
     const currentStatus = selected.value;
     const ventilator = isChecked === undefined ? "false" : isChecked;
@@ -53,16 +54,17 @@ const Entry = () => {
         setError(true);
       } else {
         setError("");
+        setSuccess(true);
       }
     });
   };
 
   const errorMessage = () => {
     return (
-      <div className="row">
-        <div className="col-md-6 offset-sm-3 text-left">
+      <div className="column" style={{ display: error ? "" : "none" }}>
+        <div className="ui segment">
           <div
-            className="alert alert-danger"
+            className="ui red message"
             style={{ display: error ? "" : "none" }}
           >
             {error}
@@ -71,6 +73,12 @@ const Entry = () => {
       </div>
     );
   };
+
+  const successMessage = () => (
+    <div className="ui segment" style={{ display: success ? "" : "none" }}>
+      <h4>Patient created successfully</h4>
+    </div>
+  );
 
   return (
     <EntryDiv>
@@ -124,6 +132,7 @@ const Entry = () => {
           Submit
         </CustomButton>
       </form>
+      {successMessage()}
       {errorMessage()}
     </EntryDiv>
   );

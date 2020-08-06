@@ -68,7 +68,7 @@ const SignIn = () => {
   const loadingMessage = () => {
     return (
       loading && (
-        <div className="alert alert-info">
+        <div className="ui red message">
           <h2>Loading...</h2>
         </div>
       )
@@ -85,10 +85,10 @@ const SignIn = () => {
 
   const errorMessage = () => {
     return (
-      <div className="row">
-        <div className="col-md-6 offset-sm-3 text-left">
+      <div className="column" style={{ display: error ? "" : "none" }}>
+        <div className="ui segment">
           <div
-            className="alert alert-danger"
+            className="ui red message"
             style={{ display: error ? "" : "none" }}
           >
             {error}
@@ -106,7 +106,7 @@ const SignIn = () => {
         <FormInput
           name="email"
           type="email"
-          handleChange={handleChange}
+          handleChange={handleChange("email")}
           value={email}
           label="email"
           required
@@ -115,7 +115,7 @@ const SignIn = () => {
           name="password"
           type="password"
           value={password}
-          handleChange={handleChange}
+          handleChange={handleChange("password")}
           label="password"
           required
         />

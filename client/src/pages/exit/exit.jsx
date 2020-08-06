@@ -9,6 +9,7 @@ import { dischargePatient, isAuthenticated } from "../../apis";
 
 const Exit = () => {
   const [isChecked, setIsChecked] = React.useState(undefined);
+  const [success, setSuccess] = React.useState(false);
   const [result, setResult] = useState({
     patient_id: "",
     patientId: "",
@@ -50,6 +51,7 @@ const Exit = () => {
           setError(true);
         } else {
           setError("");
+          setSuccess(true);
         }
       }
     );
@@ -57,10 +59,10 @@ const Exit = () => {
 
   const errorMessage = () => {
     return (
-      <div className="row">
-        <div className="col-md-6 offset-sm-3 text-left">
+      <div className="column" style={{ display: error ? "" : "none" }}>
+        <div className="ui segment">
           <div
-            className="alert alert-danger"
+            className="ui red message"
             style={{ display: error ? "" : "none" }}
           >
             {error}
@@ -69,6 +71,12 @@ const Exit = () => {
       </div>
     );
   };
+
+  const successMessage = () => (
+    <div className="ui segment" style={{ display: success ? "" : "none" }}>
+      <h4>Patient discharged successfully</h4>
+    </div>
+  );
 
   return (
     <ExitDiv>
@@ -99,6 +107,7 @@ const Exit = () => {
           Submit
         </CustomButton>
       </form>
+      {successMessage()}
       {errorMessage()}
     </ExitDiv>
   );

@@ -19,7 +19,14 @@ const SignUp = ({ signUpStart }) => {
     success: false,
   });
 
-  const { displayName, email, password, confirmPassword } = userCredentials;
+  const {
+    displayName,
+    email,
+    password,
+    confirmPassword,
+    error,
+    success,
+  } = userCredentials;
 
   // const [values, setValues] = useState({
   //   name: "",
@@ -40,27 +47,25 @@ const SignUp = ({ signUpStart }) => {
     }
 
     //signUpStart({ displayName, email, password });
-    signup({ displayName, email, password })
-      .then((data) => {
-        if (data.error) {
-          setUserCredentials({
-            ...userCredentials,
-            error: data.error,
-            success: false,
-          });
-        } else {
-          setUserCredentials({
-            ...userCredentials,
-            displayName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            error: "",
-            success: true,
-          });
-        }
-      })
-      .catch(console.log("Error in signup"));
+    signup({ displayName, email, password }).then((data) => {
+      if (data.error) {
+        setUserCredentials({
+          ...userCredentials,
+          error: data.error,
+          success: false,
+        });
+      } else {
+        setUserCredentials({
+          ...userCredentials,
+          displayName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          error: "",
+          success: true,
+        });
+      }
+    });
   };
 
   const handleChange = (name) => (event) => {
@@ -73,6 +78,27 @@ const SignUp = ({ signUpStart }) => {
 
     //setUserCredentials({ ...userCredentials, [name]: value });
   };
+
+  const errorMessage = () => {
+    return (
+      <div className="column" style={{ display: error ? "" : "none" }}>
+        <div className="ui segment">
+          <div
+            className="ui red message"
+            style={{ display: error ? "" : "none" }}
+          >
+            {error}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const successMessage = () => (
+    <div className="ui segment" style={{ display: success ? "" : "none" }}>
+      <h4>User created successfully</h4>
+    </div>
+  );
 
   return (
     <SignUpContainer>
@@ -113,6 +139,8 @@ const SignUp = ({ signUpStart }) => {
         />
         <CustomButton type="submit">SIGN UP</CustomButton>
       </form>
+      {errorMessage()}
+      {successMessage()}
     </SignUpContainer>
   );
 };
