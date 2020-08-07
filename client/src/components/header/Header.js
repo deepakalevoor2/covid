@@ -5,13 +5,13 @@
 // import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
 // const Header = () => {
-//   return (
-//     <div className="ui secondary pointing menu">
+// return (
+//     <div classNameName="ui secondary pointing menu">
 //       <Suspense fallback={<Spinner />}>
-//         <Route to="/" className="item">
+//         <Route to="/" classNameName="item">
 //           Logo
 //         </Route>
-//         <div className="right menu">
+//         <div classNameName="right menu">
 //           <Route
 //             exact
 //             path="/signin"
@@ -20,85 +20,86 @@
 //             }
 //           />
 //         </div>
-//         <div class="left">
+//         <div className="left">
 //           <div
-//             class="ui visible sidebar inverted vertical menu"
+//             className="ui visible sidebar inverted vertical menu"
 //             style={{ top: 40 }}
 //           >
-//             <a class="item">Insights</a>
-//             <a class="item">Entry</a>
-//             <a class="item">Patient Status</a>
-//             <a class="item">Exit</a>
+//             <a className="item">Insights</a>
+//             <a className="item">Entry</a>
+//             <a className="item">Patient Status</a>
+//             <a className="item">Exit</a>
 //           </div>
 //         </div>
 //       </Suspense>
 //     </div>
-//   );
+// );
 // };
 
-import React, { useEffect, Fragment } from "react";
-import { Redirect } from "react-router-dom";
-//import { connect } from "react-redux";
-//import { createStructuredSelector } from "reselect";
+import React, {useEffect, Fragment} from "react";
+import {Redirect, Link} from "react-router-dom";
+// import { connect } from "react-redux";
+// import { createStructuredSelector } from "reselect";
 
-//import { selectCartHidden } from "../../redux/cart/cart.selectors";
-//import { selectCurrentUser } from "../../redux/user/user.selectors";
-//import { signOutStart } from "../../redux/user/user.actions";
-import { isAuthenticated, signout } from "../../apis";
+// import { selectCartHidden } from "../../redux/cart/cart.selectors";
+// import { selectCurrentUser } from "../../redux/user/user.selectors";
+// import { signOutStart } from "../../redux/user/user.actions";
+import {isAuthenticated, signout} from "../../apis";
 
-import { ReactComponent as Logo } from "../../assets/crown.svg";
+import {ReactComponent as Logo} from "../../assets/Vebed_Logo.svg";
 
-import {
-  HeaderContainer,
-  LogoContainer,
-  OptionsContainer,
-  OptionLink,
-} from "./header.styles";
+import { LogoContainer, OptionsContainer, OptionLink} from "./header.styles";
 
 const Header = () => {
-  const performRedirect = () => {
-    return <Redirect to="/" />;
-  };
-  const { user } = isAuthenticated();
-  useEffect(() => {
-    isAuthenticated();
-  }, [user]);
+    const performRedirect = () => {
+        return <Redirect to="/"/>;
+    };
+    const {user} = isAuthenticated();
+    useEffect(() => {
+        isAuthenticated();
+    }, [user]);
 
-  return (
-    <HeaderContainer>
-      <LogoContainer to="/">
-        <Logo className="logo" />
-      </LogoContainer>
-      <Fragment>
-        <OptionsContainer>
-          {isAuthenticated() ? (
-            <OptionLink
-              to="/#"
-              onClick={() => {
-                signout(() => {
-                  performRedirect();
-                });
-              }}
-            >
-              SIGN OUT
-            </OptionLink>
-          ) : (
-            <OptionLink to="/signin">SIGN IN</OptionLink>
-          )}
-        </OptionsContainer>
-      </Fragment>
-    </HeaderContainer>
-  );
-};
+    return (
+        <div className="ui secondary menu" style={{position:"fixed"}}>
+            <Link>
+                <LogoContainer to="/">
+                    <Logo className="logo"/>
+                </LogoContainer>
+            </Link>
+            <div className="right menu" style={{right:"0px",position:"fixed"}}>
+                <Link>
+                    <Fragment>
+                        <OptionsContainer> {
+                            isAuthenticated() ? (
+                                <OptionLink to="/#"
+                                    onClick={
+                                        () => {
+                                            signout(() => {
+                                                performRedirect();
+                                            });
+                                        }
+                                }>
+                                    Logout
+                                </OptionLink>
+                            ) : (
+                                <OptionLink to="/signin">Login</OptionLink>
+                            )
+                        } </OptionsContainer>
+                    </Fragment>
+                </Link>
+            </div>
+        </div>
+    )
+}
 
 // const mapStateToProps = createStructuredSelector({
-//   currentUser: selectCurrentUser,
-//   //hidden: selectCartHidden,
+// currentUser: selectCurrentUser,
+// //hidden: selectCartHidden,
 // });
 
 // const mapDispatchToProps = (dispatch) => ({
-//   signOutStart: () => dispatch(signOutStart()),
+// signOutStart: () => dispatch(signOutStart()),
 // });
 
-//export default connect(mapStateToProps)(Header);
+// export default connect(mapStateToProps)(Header);
 export default Header;

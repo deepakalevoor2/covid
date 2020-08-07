@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 //   getPatientCountByVentilator,
 // } from "../../apis";
 import { API } from "../../backend";
-import { HomePageContainer, Circle } from "./homepage.styles";
+import { HomePageContainer, Circle,RectBox } from "./homepage.styles";
 
 const HomePage = () => {
   const totalBeds = 150;
@@ -82,7 +82,8 @@ const HomePage = () => {
 
   return (
     <HomePageContainer>
-      <h1>Beds</h1>
+      <h1 style={{position:"relative",left:"-330px"}}>Beds</h1>
+      <RectBox>
       <div
         style={{
           display: "flex",
@@ -109,7 +110,9 @@ const HomePage = () => {
           </div>
         </Circle>
       </div>
-      <h1>Ventilators</h1>
+      </RectBox>
+      <h1 style={{position:"relative",left:"-200px"}}>Ventilators</h1>
+      <RectBox style={{width:"700px"}}>
       <div
         style={{
           display: "flex",
@@ -117,7 +120,7 @@ const HomePage = () => {
           padding: "10px 40px",
           justifyContent: "space-between",
           flexWrap: "wrap",
-          margin: "30px",
+          margin:"30px 90px 30px 90px",
           gap: "20px",
         }}
       >
@@ -149,19 +152,12 @@ const HomePage = () => {
               padding: "70px 30px",
             }}
           >
-            <h4>Used</h4>
+            <h4>Free</h4>
             <p>{totalVentilators - ventilatorCount}</p>
           </div>
         </Circle>
       </div>
-      {/*<div>
-        <h4>Used</h4>
-        <h6>{ventilatorCount}</h6>
-      </div>
-      <div>
-        <h4>Free</h4>
-        <h6>{totalVentilators - ventilatorCount}</h6>
-      </div>*/}
+      </RectBox>
     </HomePageContainer>
   );
 };

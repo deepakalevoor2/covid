@@ -7,7 +7,7 @@ import { HomePage, SignInDiv } from "./home.styles";
 const Home = () => (
   <div>
     <HomePage>
-      <img src={require("../../assets/covid.jpg")} alt="covid" />
+    <img src={require("../../assets/covid.gif")} alt="covid" />
     </HomePage>
     <SignInDiv>
       <SignIn />

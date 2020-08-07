@@ -94,7 +94,7 @@ exports.patientCountBySevirity = (req, res) => {
 
 exports.patientCountByVentilator = (req, res) => {
   Patient.aggregate([
-    { $match: { ventilator: true } },
+    { $match: { ventilator: true,discharged:false } },
     //{ $group: { _id: "$currentStatus", myCount: { $sum: 1 } } },
     { $group: { _id: null, ptCount: { $sum: 1 } } },
   ]).exec((err, ptCount) => {

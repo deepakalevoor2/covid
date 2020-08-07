@@ -30,7 +30,7 @@ const SignIn = () => {
   //   setCredentials({ ...userCredentials, [name]: value });
   // };
   const [values, setValues] = useState({
-    email: "a@deepak.com",
+    email: "shreyaspro18@gmail.com",
     password: "saregama123",
     error: "",
     loading: false,
