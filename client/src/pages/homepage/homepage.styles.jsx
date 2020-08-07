@@ -4,7 +4,7 @@ export const HomePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 80px;
+  padding: 80px 80px;
 `;
 
 export const Circle = styled.div`
@@ -20,7 +20,16 @@ export const Circle = styled.div`
   /*border-radius: 100%;*/
   text-align: center;
   justify-content: "space-between";
-  margin-right: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
   /*display: flex;*/
   /*color: "#ff0000";*/
+`;
+
+export const RectBox = styled.div`
+border-radius: 25px;
+  border: 2px solid #73AD21;
+  width: auto;
+  height: auto;
+  margin-left:115px;
 `;
